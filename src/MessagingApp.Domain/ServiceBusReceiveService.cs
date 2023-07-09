@@ -8,13 +8,16 @@ public class ServiceBusReceiveService : IServiceBusReceiveService
     private readonly ServiceBusClient _client;
     private readonly ServiceBusProcessor _processor;
 
-    public ServiceBusReceiveService(string connectionString, string queueName)
+    public ServiceBusReceiveService(string connectionString, string queueName, string subscriptionName = null)
     {
         ServiceBusClientOptions options = new () {
             TransportType = ServiceBusTransportType.AmqpWebSockets
         };
         _client = new ServiceBusClient(connectionString,options);
-        _processor = _client.CreateProcessor(queueName, new ServiceBusProcessorOptions());
+        if(subscriptionName != null)
+            _processor = _client.CreateProcessor(queueName, subscriptionName, new ServiceBusProcessorOptions());
+        else
+            _processor = _client.CreateProcessor(queueName, new ServiceBusProcessorOptions());
         
     }
 

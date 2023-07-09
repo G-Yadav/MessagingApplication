@@ -31,7 +31,7 @@ public class ServiceBusSendService : IServiceBusSendService
         return this;
     }
 
-    public async void Dispose()
+    public async Task Dispose()
     {
         await _sender.CloseAsync();
         await _sender.DisposeAsync();

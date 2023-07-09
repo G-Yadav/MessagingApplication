@@ -7,6 +7,6 @@ public interface IServiceBusSendService
     Task SendMessage();
     IServiceBusSendService CreateConnection();
     IServiceBusSendService AddMessage(string message);
-    void Dispose();
+    Task Dispose();
 
 }
